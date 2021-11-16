@@ -8,6 +8,13 @@
 <body>
   <div id="vis"/>
   <script>
+      var arr =[]
+            for (var i = 0; i<=59;i++){
+                var yr = 1960 + i
+                arr.push(String(yr))
+              console.log(arr);
+        
+      }
     const spec = {
   "data": {
     "url": "https://raw.githubusercontent.com/ashkanmoghaddassi/state_crimes/main/state_crime.csv"
@@ -20,7 +27,7 @@
           "fields": ["Year"],
           "bind": {
             "input": "select",
-            "options": ["1960", "1970", "1980", "1990", "2000", "2010"]
+            "options": arr
           }
         },
         "brush": {"type": "interval"}
