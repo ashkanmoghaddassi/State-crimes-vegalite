@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.21.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.20.0"></script>
+</head>
+<body>
+  <div id="vis"/>
+  <script>
+    const spec = {
+  "data": {
+    "url": "https://raw.githubusercontent.com/ashkanmoghaddassi/state_crimes/main/state_crime.csv"
+  },
+  "vconcat": [
+    {
+      "selection": {
+        "Select": {
+          "type": "single",
+          "fields": ["Year"],
+          "bind": {
+            "input": "select",
+            "options": ["1960", "1970", "1980", "1990", "2000", "2010"]
+          }
+        },
+        "brush": {"type": "interval"}
+      },
+      "mark": "point",
+      "encoding": {
+        "y": {
+          "field": "Data\\.Rates\\.Property\\.All",
+          "type": "quantitative",
+          "title": "Property-Crime Rate (per 100,000)"
+        },
+        "x": {
+          "field": "Data\\.Population",
+          "type": "quantitative",
+          "title": "Population"
+        },
+        "color": {"value": "#ff9900"},
+        "opacity": {
+          "condition": {"selection": "Select", "value": 0.7},
+          "value": 0
+        }
+      }
+    },
+    {
+      "transform": [{"filter": {"param": "brush"}}],
+      "width": 500,
+      "mark": "bar",
+      "encoding": {
+        "y": {
+          "field": "Data\\.Rates\\.Violent\\.All",
+          "type": "quantitative",
+          "title": "Property-Crime Rate (per 100,000)"
+        },
+        "x": {"field": "State", "type": "nominal", "title": "State"}
+      }
+    }
+  ],
+  "config": {}
+};
+    vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+  </script>
+</body>
+</html>
